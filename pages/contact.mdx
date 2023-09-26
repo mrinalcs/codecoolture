@@ -1,0 +1,25 @@
+import { Application } from "../layouts/Application";
+import { Text } from "../components/Text";
+
+export default ({ children }) => {
+  return (
+    <Application>
+      <Application.Article>{children}</Application.Article>
+    </Application>
+  );
+};
+
+# Let’s talk!
+
+{<Text size="l">I love to talk about software and technology, so if you have any questions or comments, please feel free
+to reach out to me using any of the following methods.</Text>}
+
+- [Send me an email][email], and you will get a response within 2-4 business days.
+- For quick comments or questions, you can [send me a message on Mastodon][mastodon].
+- If you want to see what I’m up to, you can [follow me on GitHub][github] or visit my [LinkedIn][linkedin] profile.
+- For anything else: **hola@codecoolture.com**.
+
+[email]: mailto:hola@codecoolture.com
+[mastodon]: https://mastodon.world/@codecoolture
+[linkedin]: https://linkedin.com/in/sergioalvarezsuarez
+[github]: https://github.com/codecoolture

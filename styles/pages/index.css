@@ -1,0 +1,16 @@
+.Homepage {
+  padding: 5vh 0;
+}
+
+.Homepage__Heading {
+  margin-bottom: 1em;
+  margin-top: 1.5em;
+}
+
+.Homepage__Publication:not(:first-of-type) {
+  margin-top: 1rem;
+}
+
+.Homepage__ReadMore {
+  margin-top: 2em;
+}

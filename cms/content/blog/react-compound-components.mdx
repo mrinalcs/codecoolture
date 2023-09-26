@@ -1,0 +1,192 @@
+---
+date: "2022-12-13"
+spoiler:
+  "Let's improve our components API by using compound components instead of
+  render props."
+title: "React: Using children instead of dedicated render slots"
+url: "/blog/react-compound-components"
+published: true
+collections:
+  - react
+---
+
+# React: Using children instead of dedicated render slots
+
+Using component props to pass data (or `JSX` elements directly) that will later
+populate internal UI pieces has been a prevalent pattern in the React community,
+trying (probably) to emulate [the better-designed slot approach adopted by
+Vue][vue-slots].
+
+For example, imagine we are coding a new `Nav` component for our site. It will
+render a collection of nav items, the page title, and a call to action link.
+Each page might customize any of these elements.
+
+Not surprisingly, I think either of these two would be the most popular examples
+we might find out there (or a combination of both):
+
+```jsx
+// Passing simple data structures with the desired data
+<Nav
+  cta={{ text: "Buy the book!", href: "https://url.to/buy-my-book" }}
+  menuItems={[
+    { text: "Home", href: "/home" },
+    { text: "About", href: "/about" },
+    { text: "Contact", href: "/contact" },
+  ]}
+  title="My Site"
+/>
+
+// Passing JSX elements directly
+<Nav
+  cta={<a href="https://url.to/buy-my-book">Buy the book!</a>}
+  menuItems={
+    <>
+      <li>
+        <a href="/home">Home</a>
+      </li>
+
+      <li>
+        <a href="/about">About</a>
+      </li>
+
+      <li>
+        <a href="/contact">Contact</a>
+      </li>
+    </>
+  }
+  title={<h1>My Site</h1>}
+/>
+```
+
+Even in such as simple example, we can start seeing some of the problems with
+this approach: it creeps the component API with render props, it is not very
+idiomatic, and it can quickly get worse as we continue adding some more
+customization for each element. For example, we may later add specific props to
+styling each of the items, title, and call-to-action components:
+`menuItemStyle`, `titleStyle`, `ctaStyle`, and so on:
+
+```jsx
+<Nav
+  cta={{ text: "Buy the book!", href: "https://url.to/buy-my-book" }}
+  ctaStyle={{ color: "red" }}
+  ctaOnClick={() => alert("Thanks for buying the book!")}
+  menuItems={[
+    { text: "Home", href: "/home" },
+    { text: "About", href: "/about" },
+    { text: "Contact", href: "/contact" },
+  ]}
+  menuItemStyle={{ color: "blue" }}
+  onMenuItemClick={(href) => alert(`Navigating to ${href}`)}
+  title="My Site"
+  titleStyle={{ color: "green" }}
+/>
+```
+
+Let’s try a different approach. One that resembles how HTML works and that is
+supported out-of-the-box by React.
+
+## Using `children` and dedicated components
+
+```jsx
+<Nav>
+  <Nav.Title>My Site</Nav.Title>
+
+  <Nav.Menu>
+    <Nav.Menu.Item href="/">Home</Nav.Menu.Item>
+    <Nav.Menu.Item href="/about">About</Nav.Menu.Item>
+    <Nav.Menu.Item href="/contact">Contact</Nav.Menu.Item>
+  </Nav.Menu>
+
+  <Nav.CallToAction href="https://url.to/buy-my-book">
+    Buy the book!
+  </Nav.CallToAction>
+</Nav>
+```
+
+If you have done some React development, you probably know the `children` prop
+is how React passes content down to components (for example `<p>Hola</p>`, where
+`p` is the component, and `Hola` is the value of the `children` prop).
+
+The example above uses `children` and composition extensively to render the
+desired UI. Instead of passing multiple props to the `Nav` component, we create
+many small, dedicated components which may of course receive their own props.
+
+As a result, this approach gives us a much more flexible and idiomatic API. If
+we later need to add additional elements to the `Nav` component, we can do so
+without changing the `Nav` component at all (following the [Open-Closed design
+principle][open-closed]).
+
+On the other hand, using this technique comes with some drawbacks worth
+mentioning:
+
+- We have to make it clear that these dedicated components are only meant to be
+  used as children of the `Nav` component. We can do this by using the `Nav`
+  namespace, for example: `Nav.Title`, `Nav.Menu`, and `Nav.CallToAction`.
+- We must ensure the `Nav` component is flexible enough to handle the different
+  cases we might want to render. For example, if we want to make it possible to
+  render the `Nav.Menu` component either after or before the `Nav.CallToAction`
+  component, the styles should be sufficiently sophisticated to handle both
+  cases.
+
+### Possible implementation
+
+Pay attention to how we export the `Nav` component and its dedicated components.
+That’s the secret sauce to namespace them and make it clear they are only meant
+to be used as children of the `Nav` component.
+
+```jsx
+const Nav = ({ children }) => {
+  return <nav>{children}</nav>;
+};
+
+const CallToAction = ({ children, href }) => {
+  return <a href={href}>{children}</a>;
+};
+
+const Menu = ({ children }) => {
+  return <ul>{children}</ul>;
+};
+
+const MenuItem = ({ children, href }) => {
+  return (
+    <li>
+      <a href={href}>{children}</a>
+    </li>
+  );
+};
+
+const Title = ({ children }) => {
+  return <h1>{children}</h1>;
+};
+
+Menu.Item = MenuItem;
+
+Nav.CallToAction = CallToAction;
+Nav.Menu = Menu;
+Nav.Title = Title;
+
+export { Nav };
+```
+
+## Notes
+
+- A few weeks after starting to write this post, I received a newsletter from
+  [Kent C. Dodds][kentcdodds] featuring a React article. Coincidentally, the
+  content of [the post][soul-crushing-components] covered precisely this! So,
+  digging a little more, I found this pattern had been documented since a few
+  years ago (watch out [this video talk][talk] from Ryan Florence at _Phoenix
+  ReactJS Conf_ in 2017), and it is called **_Compound components_**.
+- [Radix UI][radix] uses this pattern extensively.
+- If you’re curious, I used this pattern to build the whole landing page for my
+  tddworkshop.com page. You can check the source code [here][tddworkshop].
+
+Happy hacking!
+
+[vue-slots]: https://vuejs.org/guide/components/slots.html#named-slots
+[open-closed]: https://en.wikipedia.org/wiki/Open%E2%80%93closed_principle
+[tddworkshop]:
+  https://github.com/codecoolture/tddworkshop.com/blob/trunk/pages/en/index.tsx
+[radix]: https://www.radix-ui.com/
+[kentcdodds]: https://kentcdodds.com/
+[soul-crushing-components]: https://epicreact.dev/soul-crushing-components/
+[talk]: https://www.youtube.com/watch?v=hEGg-3pIHlE

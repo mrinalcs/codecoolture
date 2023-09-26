@@ -1,0 +1,35 @@
+.Post__Footer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  font-size: var(--fs-s);
+  gap: 1rem;
+  justify-content: center;
+  margin: 3rem 0 1rem;
+}
+
+.Post__Footer__Chip {
+  align-items: center;
+  display: inline-flex;
+  justify-content: center;
+  max-width: 100%;
+  min-width: calc(200px - 1.5em);
+  padding: 0.35em 0.75em;
+
+  border-radius: 3px;
+  text-decoration: none;
+}
+
+.Post__Footer__Chip--Twitter {
+  background-color: #1da1f2;
+  color: var(--c-white);
+}
+
+.Post__Footer__Chip--Github {
+  background-color: #24292f;
+  color: var(--c-white);
+}
+
+.Post__Footer__Chip__Icon {
+  margin-right: 0.5em;
+}

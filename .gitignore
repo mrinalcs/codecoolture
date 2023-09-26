@@ -1,0 +1,12 @@
+**/.next
+**/.vscode
+**/node_modules
+
+**/cypress/videos
+**/cypress/screenshots
+
+**/tsconfig.tsbuildinfo
+
+**/public/feed.xml
+
+**/out

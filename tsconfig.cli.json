@@ -1,0 +1,11 @@
+{
+  "extends": "./tsconfig",
+  "compilerOptions": {
+    "isolatedModules": false,
+    "module": "NodeNext"
+  },
+  "ts-node": {
+    // Do not forget to `npm i -D tsconfig-paths`
+    "require": ["tsconfig-paths/register"]
+  }
+}

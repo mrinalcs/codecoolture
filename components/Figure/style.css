@@ -1,0 +1,17 @@
+.Figure {
+  display: flex;
+  flex-direction: column;
+}
+
+.Figure__Img {
+  max-width: 100%;
+}
+
+.Figure__Caption {
+  font-size: var(--fs-s);
+  line-height: 1.65;
+  margin-top: 0.5em;
+
+  color: var(--c-gray-11);
+  text-align: center;
+}

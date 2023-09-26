@@ -1,0 +1,16 @@
+{
+  "extends": ["config:base"],
+
+  "packageRules": [
+    {
+      "matchManagers": ["npm"],
+      "matchUpdateTypes": ["patch", "pin"],
+      "automerge": true
+    },
+
+    {
+      "matchPackagePatterns": ["eslint"],
+      "groupName": "eslint"
+    }
+  ]
+}

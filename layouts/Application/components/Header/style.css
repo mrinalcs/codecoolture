@@ -1,0 +1,54 @@
+.AppHeader {
+  box-sizing: border-box;
+  padding: 1em 0;
+  position: sticky;
+  top: 0;
+  width: 100%;
+  z-index: 1;
+
+  color: var(--c-gray-12);
+
+  backdrop-filter: blur(4px) saturate(120%);
+}
+
+.Menu {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  gap: 1em;
+  justify-content: space-between;
+}
+
+.Menu--NoBackLink {
+  flex-direction: row-reverse;
+}
+
+.Menu__BackLink {
+  font-size: var(--fs-m);
+  font-weight: 700;
+}
+
+.Menu__Link {
+  align-items: center;
+  display: flex;
+  gap: 0.25em;
+
+  color: currentColor;
+  text-decoration: none;
+}
+
+.Menu__List {
+  display: flex;
+  flex-direction: row;
+  gap: 1em;
+
+  list-style-type: none;
+}
+
+.Menu__Item {
+  font-size: var(--fs-m);
+
+  color: var(--c-gray-12);
+  cursor: pointer;
+  font-weight: 700;
+}

@@ -1,0 +1,114 @@
+/**
+ * prism.js tomorrow night eighties for JavaScript, CoffeeScript, CSS and HTML
+ * Based on https://github.com/chriskempson/tomorrow-theme
+ * @author Rose Pritchard
+ */
+
+.Codeblock.Codeblock--Dark code[class*="language-"],
+.Codeblock.Codeblock--Dark pre[class*="language-"] {
+  color: #ccc;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  word-wrap: normal;
+  line-height: 1.5;
+
+  -moz-tab-size: 4;
+  -o-tab-size: 4;
+  tab-size: 4;
+
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+}
+
+/* Code blocks */
+.Codeblock.Codeblock--Dark pre[class*="language-"] {
+  padding: 1em;
+  margin: 0.5em 0;
+  overflow: auto;
+}
+
+/* Inline code */
+.Codeblock.Codeblock--Dark :not(pre) > code[class*="language-"] {
+  padding: 0.1em;
+  border-radius: 0.3em;
+  white-space: normal;
+}
+
+.Codeblock.Codeblock--Dark .token.comment,
+.Codeblock.Codeblock--Dark .token.block-comment,
+.Codeblock.Codeblock--Dark .token.prolog,
+.Codeblock.Codeblock--Dark .token.doctype,
+.Codeblock.Codeblock--Dark .token.cdata {
+  color: #999;
+}
+
+.Codeblock.Codeblock--Dark .token.punctuation {
+  color: #ccc;
+}
+
+.Codeblock.Codeblock--Dark .token.tag,
+.Codeblock.Codeblock--Dark .token.attr-name,
+.Codeblock.Codeblock--Dark .token.namespace,
+.Codeblock.Codeblock--Dark .token.deleted {
+  color: #e2777a;
+}
+
+.Codeblock.Codeblock--Dark .token.function-name {
+  color: #6196cc;
+}
+
+.Codeblock.Codeblock--Dark .token.boolean,
+.Codeblock.Codeblock--Dark .token.number,
+.Codeblock.Codeblock--Dark .token.function {
+  color: #f08d49;
+}
+
+.Codeblock.Codeblock--Dark .token.property,
+.Codeblock.Codeblock--Dark .token.class-name,
+.Codeblock.Codeblock--Dark .token.constant,
+.Codeblock.Codeblock--Dark .token.symbol {
+  color: #f8c555;
+}
+
+.Codeblock.Codeblock--Dark .token.selector,
+.Codeblock.Codeblock--Dark .token.important,
+.Codeblock.Codeblock--Dark .token.atrule,
+.Codeblock.Codeblock--Dark .token.keyword,
+.Codeblock.Codeblock--Dark .token.builtin {
+  color: #cc99cd;
+}
+
+.Codeblock.Codeblock--Dark .token.string,
+.Codeblock.Codeblock--Dark .token.char,
+.Codeblock.Codeblock--Dark .token.attr-value,
+.Codeblock.Codeblock--Dark .token.regex,
+.Codeblock.Codeblock--Dark .token.variable {
+  color: #7ec699;
+}
+
+.Codeblock.Codeblock--Dark .token.operator,
+.Codeblock.Codeblock--Dark .token.entity,
+.Codeblock.Codeblock--Dark .token.url {
+  color: #67cdcc;
+}
+
+.Codeblock.Codeblock--Dark .token.important,
+.Codeblock.Codeblock--Dark .token.bold {
+  font-weight: bold;
+}
+
+.Codeblock.Codeblock--Dark .token.italic {
+  font-style: italic;
+}
+
+.Codeblock.Codeblock--Dark .token.entity {
+  cursor: help;
+}
+
+.Codeblock.Codeblock--Dark .token.inserted {
+  color: green;
+}
